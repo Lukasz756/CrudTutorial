@@ -1,15 +1,16 @@
 package com.example.crudTutorial.Employee;
 
 import com.example.crudTutorial.Group.Group;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -24,11 +25,18 @@ public class Employee {
         private String designation;
         private int age;
 
-        @ManyToMany
+        @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
         @JoinTable(name = "employee_group",
         joinColumns = @JoinColumn(name = "employee_id"),
         inverseJoinColumns = @JoinColumn(name = "group_id"))
-        private Set<Group> groupSet = new HashSet<>();
+        private Set<Group> employeeGroups = new HashSet<>();
 
+        public Employee(Long id,String name,String designation,int age){
+                this.id = id;
+                this.name = name;
+                this.designation = designation;
+                this.age = age;
+
+        }
 
 }

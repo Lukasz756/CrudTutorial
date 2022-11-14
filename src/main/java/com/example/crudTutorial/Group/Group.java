@@ -1,37 +1,33 @@
 package com.example.crudTutorial.Group;
 
 import com.example.crudTutorial.Employee.Employee;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Data
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "groups")
 public class Group {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "groupSet")
+    @ManyToMany(mappedBy = "employeeGroups", fetch = FetchType.LAZY)
     private Set<Employee> employees = new HashSet<>();
 
-    private void addEmployee(Employee employee){
-        this.employees.add(employee);
-        employee.getGroupSet().add(this);
-    }
-
-    private void removeEmployee(Employee employee){
-        this.employees.remove(employee);
-        employee.getGroupSet().remove(this);
+    public Group(Long id, String name){
+       this.id = id;
+       this.name = name;
     }
 
 
