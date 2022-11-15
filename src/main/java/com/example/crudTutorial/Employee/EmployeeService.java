@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface EmployeeService {
     Employee save(Employee employee);
+    void employeeToShift(EmployeeShiftDTO employeeShiftDTO);
 }

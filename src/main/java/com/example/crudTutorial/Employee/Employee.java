@@ -1,14 +1,15 @@
 package com.example.crudTutorial.Employee;
 
-import com.example.crudTutorial.Group.Group;
+import com.example.crudTutorial.Shift.Shift;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
-
+@DynamicUpdate
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,16 +27,17 @@ public class Employee {
         private int age;
 
         @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-        @JoinTable(name = "employee_group",
+        @JoinTable(name = "employee_shift",
         joinColumns = @JoinColumn(name = "employee_id"),
-        inverseJoinColumns = @JoinColumn(name = "group_id"))
-        private Set<Group> employeeGroups = new HashSet<>();
+        inverseJoinColumns = @JoinColumn(name = "shift_id"))
+        private Set<Shift> employeeshift = new HashSet<>();
 
         public Employee(Long id,String name,String designation,int age){
                 this.id = id;
                 this.name = name;
                 this.designation = designation;
                 this.age = age;
+
 
         }
 
