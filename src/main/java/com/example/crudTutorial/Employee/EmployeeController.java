@@ -1,9 +1,9 @@
 package com.example.crudTutorial.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -23,14 +23,25 @@ public class EmployeeController {
 
     }
 
+    @GetMapping("/employees")
+    public List<Employee> getEmployees(){
+       return employeeServiceImplementation.getAllEmployees();
+    }
+
     @DeleteMapping()
     public void deleteById(){
 
     }
 
     @PostMapping("/employee")
-    public void addEmployeeToGroup(@RequestBody EmployeeShiftDTO employeeShiftDTO){
+    public void addEmployeeToShift(@RequestBody EmployeeShiftDTO employeeShiftDTO){
         employeeServiceImplementation.employeeToShift(employeeShiftDTO);
+    }
+
+
+    @DeleteMapping("/employee")
+    public void removeEmployeeFromShift(@RequestBody EmployeeShiftDTO employeeShiftDTO){
+        employeeServiceImplementation.employeeRemove(employeeShiftDTO);
     }
 
 }

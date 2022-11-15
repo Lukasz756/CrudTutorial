@@ -1,6 +1,9 @@
 package com.example.crudTutorial.Employee;
 
 import com.example.crudTutorial.Shift.Shift;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -9,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @DynamicUpdate
 @Getter
 @Setter
@@ -30,6 +34,7 @@ public class Employee {
         @JoinTable(name = "employee_shift",
         joinColumns = @JoinColumn(name = "employee_id"),
         inverseJoinColumns = @JoinColumn(name = "shift_id"))
+
         private Set<Shift> employeeshift = new HashSet<>();
 
         public Employee(Long id,String name,String designation,int age){
