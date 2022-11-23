@@ -14,8 +14,8 @@ public class EmployeeController {
     EmployeeServiceImplementation employeeServiceImplementation;
 
     @PostMapping("/employees")
-    public void createEmployee(@RequestBody Employee employee){
-        employeeServiceImplementation.save(employee);
+    public void createEmployee(@RequestBody Employee employee, String shiftId){
+        employeeServiceImplementation.save(employee, Long.valueOf(shiftId));
     }
 
     @GetMapping()

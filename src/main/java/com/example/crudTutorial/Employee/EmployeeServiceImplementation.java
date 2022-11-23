@@ -15,9 +15,8 @@ public class EmployeeServiceImplementation implements EmployeeService {
     private final ShiftRepository shiftRepository;
 
     @Override
-    public Employee save(Employee employee) {
-       employee.getEmployeeshift().add(shiftRepository.findById(1L).orElseThrow());
-
+    public Employee save(Employee employee,Long shiftId) {
+        employee.getEmployeeshift().add(shiftRepository.findById(shiftId).orElseThrow());
         return employeeRepository.save(employee);
     }
 

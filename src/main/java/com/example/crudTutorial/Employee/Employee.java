@@ -32,9 +32,8 @@ public class Employee {
 
         @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
         @JoinTable(name = "employee_shift",
-        joinColumns = @JoinColumn(name = "employee_id"),
-        inverseJoinColumns = @JoinColumn(name = "shift_id"))
-
+        joinColumns = @JoinColumn(name = "employee_id",referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "shift_id",referencedColumnName = "id"))
         private Set<Shift> employeeshift = new HashSet<>();
 
         public Employee(Long id,String name,String designation,int age){
