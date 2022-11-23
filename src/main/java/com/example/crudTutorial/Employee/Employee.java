@@ -1,6 +1,7 @@
 package com.example.crudTutorial.Employee;
 
 import com.example.crudTutorial.Branch.Branch;
+import com.example.crudTutorial.Project.Project;
 import com.example.crudTutorial.Shift.Shift;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employees")
+@Table(name = "employee")
 public class Employee {
 
         @Id
@@ -36,6 +37,14 @@ public class Employee {
 
         @ManyToOne
         private Shift employeeshift;
+
+        @ManyToMany
+        @JoinTable(
+                name = "employee_projects",
+                joinColumns = @JoinColumn(name = "employee_id"),
+                inverseJoinColumns = @JoinColumn(name = "project_id")
+        )
+        private Set<Project> projects = new HashSet<>();
 
         public Employee(Long id,String name,String designation,int age){
                 this.id = id;

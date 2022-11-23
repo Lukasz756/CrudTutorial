@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,18 +18,18 @@ public class EmployeeServiceImplementation implements EmployeeService {
     private final BranchRepository branchRepository;
 
     @Override
-    public Employee save(Employee employeeToSave,Long branchId,Long shiftId) throws Exception {
+    public Employee save(Employee employeeToSave, Long branchId, Long shiftId) throws Exception {
         Employee employee = new Employee();
         employee.setName(employeeToSave.getName());
         employee.setAge(employeeToSave.getAge());
         employee.setDesignation(employeeToSave.getDesignation());
-        employee.setBranch(branchRepository.findById(branchId).orElseThrow(()->new Exception("Not found.")));
-        employee.setEmployeeshift(shiftRepository.findById(shiftId).orElseThrow(()->new Exception("Not found.")));
+        employee.setBranch(branchRepository.findById(branchId).orElseThrow(() -> new Exception("Not found.")));
+        employee.setEmployeeshift(shiftRepository.findById(shiftId).orElseThrow(() -> new Exception("Not found.")));
         return employeeRepository.save(employee);
 
     }
 
-    public void employeeToShift(EmployeeShiftDTO employeeShiftDTO){
+    public void employeeToShift(EmployeeShiftDTO employeeShiftDTO) {
         Employee updateEmployee = employeeRepository
                 .findById(employeeShiftDTO.getEmployeeId())
                 .orElseThrow();
@@ -37,11 +38,18 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
     }
 
-    public List<Employee> getAllEmployees(){
-        return employeeRepository.findAll().stream().toList();
+    @Override
+    public List<Employee> getEmployeesByShift(Long shiftId) {
+        List<Employee> employeesList = employeeRepository.findAll().stream().filter(e -> e.getEmployeeshift().getId() == shiftId).collect(Collectors.toList());
+        System.out.println(employeesList);
+        return employeeRepository.findAll().stream().filter(e -> e.getEmployeeshift().getId() == shiftId).collect(Collectors.toList());
     }
 
-    public void employeeRemove(EmployeeShiftDTO employeeShiftDTO){
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    public void employeeRemove(EmployeeShiftDTO employeeShiftDTO) {
         Employee updateEmployee = employeeRepository.findById(employeeShiftDTO
                 .getEmployeeId()).orElseThrow();
         employeeRepository.save(updateEmployee);

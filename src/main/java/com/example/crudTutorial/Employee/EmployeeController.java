@@ -33,6 +33,11 @@ public class EmployeeController {
 
     }
 
+    @GetMapping("/employeesByShift")
+    public List<Employee> getEmployeesByShift(@RequestParam Long shiftId){
+        return employeeServiceImplementation.getEmployeesByShift(shiftId);
+    }
+
     @PostMapping("/employee")
     public void addEmployeeToShift(@RequestBody EmployeeShiftDTO employeeShiftDTO){
         employeeServiceImplementation.employeeToShift(employeeShiftDTO);
