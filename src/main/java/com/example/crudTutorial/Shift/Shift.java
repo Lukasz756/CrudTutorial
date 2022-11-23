@@ -15,16 +15,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "shifts")
 public class Shift {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
 
-    @ManyToMany(mappedBy = "employeeshift", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employeeshift")
     private Set<Employee> employees = new HashSet<>();
 
     public Shift(Long id, String name){

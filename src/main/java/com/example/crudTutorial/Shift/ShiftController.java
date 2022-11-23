@@ -14,7 +14,7 @@ public class ShiftController {
     @Autowired
     ShiftServiceImplementation shiftServiceImplementation;
 
-    @PostMapping("/groups")
+    @PostMapping("/shift")
     public ResponseEntity<Shift> createShift(@RequestBody Shift shift){
         return new ResponseEntity<Shift>(shiftServiceImplementation.save(shift), HttpStatus.CREATED);
     }

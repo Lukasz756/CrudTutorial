@@ -1,5 +1,6 @@
 package com.example.crudTutorial.Employee;
 
+import com.example.crudTutorial.Branch.Branch;
 import com.example.crudTutorial.Shift.Shift;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,11 +31,11 @@ public class Employee {
         private String designation;
         private int age;
 
-        @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-        @JoinTable(name = "employee_shift",
-        joinColumns = @JoinColumn(name = "employee_id",referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "shift_id",referencedColumnName = "id"))
-        private Set<Shift> employeeshift = new HashSet<>();
+        @ManyToOne
+        private Branch branch;
+
+        @ManyToOne
+        private Shift employeeshift;
 
         public Employee(Long id,String name,String designation,int age){
                 this.id = id;
