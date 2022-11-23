@@ -41,8 +41,6 @@ public class Employee {
                 this.name = name;
                 this.designation = designation;
                 this.age = age;
-
-
         }
 
 }
