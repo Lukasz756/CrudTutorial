@@ -46,6 +46,8 @@ public class EmployeeServiceImplementation implements EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
+        //printing names for check
+        System.out.println(employeeRepository.findAll().stream().map(e -> e.getName()).collect(Collectors.toList()));
         return employeeRepository.findAll();
     }
 
